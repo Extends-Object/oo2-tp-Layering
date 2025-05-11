@@ -8,6 +8,11 @@ import jakarta.mail.internet.MimeMessage;
 
 public class NotificadorEmail implements Notificador {
 
+    private String emisor;
+    //private String destinatario;
+    private String asunto;
+    private String cuerpo;
+
     //Credenciales que me da mailtrap
     final String username = "d84e36c103e3f5";
     final String password = "4cec2de3b26f70";
@@ -15,8 +20,15 @@ public class NotificadorEmail implements Notificador {
     //Host address
     String host = "sandbox.smtp.mailtrap.io";
 
+    public NotificadorEmail() {
+        this.emisor = "your.recipient@email.com";
+        this.asunto = "Mensaje de felicidades";
+        this.cuerpo = "Feliz cumpleaños!!";
+    }
+
+
     @Override
-    public void notificar(Email email) {
+    public void notificar(String destinatario) {
 
         //Propiedades (vienen configuradas por defecto)
         Properties props = new Properties();
@@ -38,10 +50,10 @@ public class NotificadorEmail implements Notificador {
             //Contenedor del mail
             Message message = new MimeMessage(session);
 
-            message.setFrom(new InternetAddress(email.emisor()));
-            message.setRecipient(Message.RecipientType.TO, new InternetAddress(email.destinatario()));
-            message.setSubject(email.asunto());
-            message.setText(email.cuerpo());
+            message.setFrom(new InternetAddress(this.emisor));
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(destinatario));
+            message.setSubject(this.asunto);
+            message.setText(this.cuerpo);
 
             Transport.send(message);
             System.out.println("El mensaje se envió correctamente");

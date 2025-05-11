@@ -36,7 +36,7 @@ public class DefaultAPI implements IApi {
 
         for(Empleado empleado : listaEmpleados){
             if (empleado.esCumpleaños(LocalDate.now())){
-                this.notificador.notificar(new Email(empleado.email()));
+                this.notificador.notificar(empleado.email());
             }
         }
     }
