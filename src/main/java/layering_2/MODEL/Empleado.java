@@ -2,6 +2,7 @@ package layering_2.MODEL;
 
 import java.time.LocalDate;
 import java.time.MonthDay;
+import java.util.Objects;
 
 public class Empleado {
 
@@ -38,6 +39,18 @@ public class Empleado {
             throw new RuntimeException("La direccion de email no es valida");
         }
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Empleado empleado = (Empleado) o;
+        return Objects.equals(apellido, empleado.apellido) && Objects.equals(nombre, empleado.nombre) && Objects.equals(fechaNacimiento, empleado.fechaNacimiento) && Objects.equals(email, empleado.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(apellido, nombre, fechaNacimiento, email);
     }
 
     public boolean esCumpleaños(LocalDate fechaActual){
