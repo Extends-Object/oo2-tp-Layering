@@ -98,17 +98,17 @@ public class DefaultApiTest {
 
     @Test
     public void saludarPorCumpleaños() {
-        NotificadorFake fake = (NotificadorFake) notificadorFake;
 
         //Exercise
         LocalDate fechaActualFake = LocalDate.of(2025, 5, 11);
         api.saludarPorCumpleaños(fechaActualFake);
 
+        NotificadorFake fake = (NotificadorFake) notificadorFake;
 
         List<String> notificados = fake.empleadosNotificados() ;
 
         //Verify
-        assertEquals(1, notificados.size(), "No se ha notificado correctamente a todos los cumpleañeros.");
+        assertEquals(1, notificados.size(), "No se ha notificado correctamente MODEL.a todos los cumpleañeros.");
         assertTrue(notificados.contains("pepa@acdc.com"));
     }
 
