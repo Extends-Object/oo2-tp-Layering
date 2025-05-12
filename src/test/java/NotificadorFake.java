@@ -5,20 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NotificadorFake implements Notificador {
-    private final List<String> mensajesEnviados = new ArrayList<>();
+    private final List<String> empleadosNotificados = new ArrayList<>();
 
     @Override
-    public void notificar(Email notificacion) {
+    public void notificar(String destinatario) {
 
-        this.mensajesEnviados.add("Para: " + notificacion.destinatario() + ", Asunto: " + notificacion.asunto() + ", Mensaje: " + notificacion.cuerpo());
-
+        this.empleadosNotificados.add(destinatario);
     }
 
-    public List<String> getMensajesEnviados() {
-        return mensajesEnviados;
+    public List<String> empleadosNotificados() {
+        return empleadosNotificados;
     }
 
     public boolean seNotifico() {
-        return !mensajesEnviados.isEmpty();
+        return !empleadosNotificados.isEmpty();
     }
 }

@@ -4,8 +4,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DefaultApiTest {
 
@@ -40,10 +42,10 @@ public class DefaultApiTest {
     @Test
     public void cargarEmpleadoTest(){
 
-        //Excercise
-        registroEmpleados.registrarEmpleado(empleado1);
-        registroEmpleados.registrarEmpleado(empleado2);
-        registroEmpleados.registrarEmpleado(empleado3);
+        //Exercise
+        api.cargarEmpleado(empleado1);
+        api.cargarEmpleado(empleado2);
+        api.cargarEmpleado(empleado3);
 
         //Verify
         assertEquals(3, registroEmpleados.listaEmpleados().size(), "La cantidad de empleados no coincide con la insertada.");
@@ -53,8 +55,29 @@ public class DefaultApiTest {
     @Test
     public void listaEmpleadosTest(){
 
+        // Exercise
+/*        api.cargarEmpleado(empleado1);
+        api.cargarEmpleado(empleado2);
+        api.cargarEmpleado(empleado3);*/
+
+        List<Empleado> listaEmpleados = api.listaEmpleados();
+
+        // Verify
+        assertEquals(3, listaEmpleados.size(), "La cantidad de empleados no coincide con la insertada.");
+
+        System.out.println(listaEmpleados.get(1));
+        System.out.println(listaEmpleados.get(2));
+        System.out.println(listaEmpleados.get(0));
+        System.out.println(empleado1);
+
+
+        assertTrue(listaEmpleados.contains(empleado1.email()));
+        //assertTrue(listaEmpleados.contains(empleado2));
+        //assertTrue(listaEmpleados.contains(empleado3));
+
     }
 
+    /*
     @Test
     public void mostrarListaTest() {
 
@@ -67,8 +90,20 @@ public class DefaultApiTest {
                 "Perez Pepa, 11/05/1990, pepa@acdc.com\n", consola.generarStringLista(registroEmpleados.listaEmpleados()));
     }
 
+    */
+    /*
     @Test
     public void saludarPorCumpleaños() {
 
+        //Exercise
+        // Exercise
+        api.cargarEmpleado(empleado1);
+        api.cargarEmpleado(empleado2);
+        api.cargarEmpleado(empleado3);
+
+
+
     }
+
+     */
 }

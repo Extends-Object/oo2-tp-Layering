@@ -1,5 +1,6 @@
 package layering_2.MODEL;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface IApi {
@@ -10,6 +11,6 @@ public interface IApi {
 
     void mostrarLista();
 
-    void saludarPorCumpleaños();
+    void saludarPorCumpleaños(LocalDate fechaActual);
 
 }

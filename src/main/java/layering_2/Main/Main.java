@@ -29,9 +29,10 @@ public class Main {
         api.cargarEmpleado(empleado2);
         api.cargarEmpleado(empleado3);
 
-
         api.mostrarLista();
-        api.saludarPorCumpleaños();
+
+        LocalDate fechaActual = LocalDate.now();
+        api.saludarPorCumpleaños(fechaActual);
 
     }
 }
