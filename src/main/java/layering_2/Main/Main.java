@@ -31,8 +31,7 @@ public class Main {
 
         api.mostrarLista();
 
-        LocalDate fechaActual = LocalDate.now();
-        api.saludarPorCumpleaños(fechaActual);
+        api.saludarPorCumpleaños();
 
     }
 }

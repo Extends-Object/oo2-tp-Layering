@@ -8,25 +8,33 @@ public class Participante {
     private String email;
     private String telefono;
 
+    public Participante(String apellido, String nombre, String dni, String telefono, String email) {
 
-    public Participante(String nombre, String apellido, String dni, String email, String telefono) {
+        validations(apellido, nombre, dni, telefono, email);
 
-        validations(nombre, apellido, dni, email, telefono);
-
-        this.nombre = nombre;
         this.apellido = apellido;
+        this.nombre = nombre;
         this.dni = dni;
         this.email = email;
         this.telefono = telefono;
     }
 
-    private void validations(String nombre, String apellido, String dni, String email, String telefono){
-        if (nombre.isBlank() || nombre.equals(" ")) {
-            throw new RuntimeException("El nombre no puede ser vacio");
-        }
+    public Participante(String apellido, String nombre, String telefono, String email) {
+
+        this.apellido = apellido;
+        this.nombre = nombre;
+        this.email = email;
+        this.telefono = telefono;
+    }
+
+    private void validations(String apellido, String nombre, String dni, String telefono, String email){
 
         if (apellido.isBlank() || apellido.equals(" ")) {
             throw new RuntimeException("El apellido no puede ser vacio");
+        }
+
+        if (nombre.isBlank() || nombre.equals(" ")) {
+            throw new RuntimeException("El nombre no puede ser vacio");
         }
 
         if (dni.isBlank() || dni.equals(" ")) {

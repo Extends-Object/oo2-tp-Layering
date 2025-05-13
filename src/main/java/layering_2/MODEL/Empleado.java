@@ -53,8 +53,8 @@ public class Empleado {
         return Objects.hash(apellido, nombre, fechaNacimiento, email);
     }
 
-    public boolean esCumpleaños(LocalDate fechaActual){
-        return MonthDay.from(this.fechaNacimiento).equals(MonthDay.from(fechaActual));
+    public boolean esSuCumpleaños(){
+        return MonthDay.from(this.fechaNacimiento).equals(MonthDay.from(LocalDate.now()));
     }
 
     public String apellido() {
@@ -69,7 +69,9 @@ public class Empleado {
         return fechaNacimiento;
     }
 
-    public String email() {
+    public String getEmail() {
         return email;
     }
+
+
 }

@@ -1,11 +1,15 @@
 package layering_3.UI;
 
+import layering_3.MODEL.Concurso;
+import layering_3.MODEL.IApi;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 
-public class RadioCompetition extends JFrame{
+public class RadioCompetition {
 
     private JPanel contentPane;
     private JLabel lblName;
@@ -22,20 +26,24 @@ public class RadioCompetition extends JFrame{
     private JButton btnOk;
     private JLabel lblCompetition;
 
+    private IApi api;
 
-    public RadioCompetition() {
+    public RadioCompetition(IApi api) {
+
+        this.api = api;
+
         var frame = new JFrame("Inscription to Competition");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBounds(100, 100, 451, 229);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         frame.setContentPane(contentPane);
-        formElements();
+        formElements(api);
         layout();
         frame.setVisible(true);
     }
 
-    private void formElements() {
+    private void formElements(IApi api) {
 
         //INFO DE INSCRIPTOS
         lblName = new JLabel("Nombre:");
@@ -58,28 +66,34 @@ public class RadioCompetition extends JFrame{
         txtEmail = new JTextField();
         txtEmail.setColumns(10);
 
+        lblCompetition = new JLabel("Concurso:");
+        comboBox = new JComboBox<String>();
+        api.todosLosConcursos(LocalDate.now());
+
         //BOTON OK
         btnOk = new JButton("Ok");
         btnOk.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 btnOk.setEnabled(false);
-                saveInscription();
+
+                if (!(comboBox.getSelectedIndex() <= 0)) {
+                    JOptionPane.showMessageDialog(contentPane, "Debe elegir un Concurso");
+                }
+
+                String apellido = txtLastName.getText();
+                String nombre = txtName.getText();
+                int dni = Integer.parseInt(txtId.getText());
+                String telefono = txtPhone.getText();
+                String email = txtEmail.getText();
+
+                Concurso concurso = (Concurso) comboBox.getSelectedItem();
+
+                api.saveInscription(apellido, nombre, dni, email, telefono, concurso);
+
                 btnOk.setEnabled(true);
             }
         });
-
-
-        lblCompetition = new JLabel("Concurso:");
-        comboBox = new JComboBox<String>();
-        todosLosConcursos();
     }
-
-
-    if (this.comboBox.getSelectedIndex() <= 0) {
-        JOptionPane.showMessageDialog(this.contentPane, "Debe elegir un Concurso");
-        return false;
-    }
-
 
     private void layout() {
         GroupLayout gl_contentPane = new GroupLayout(contentPane);

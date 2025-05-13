@@ -31,11 +31,11 @@ public class DefaultAPI implements IApi {
     }
 
     @Override
-    public void saludarPorCumpleaños(LocalDate fechaActual) {
+    public void saludarPorCumpleaños() {
         List<Empleado> listaEmpleados = this.listaEmpleados();
         for(Empleado empleado : listaEmpleados){
-            if (empleado.esCumpleaños(fechaActual)){
-                this.notificador.notificar(empleado.email());
+            if (empleado.esSuCumpleaños()){
+                this.notificador.notificar(empleado.getEmail());
             }
         }
     }

@@ -11,6 +11,6 @@ public interface IApi {
 
     void mostrarLista();
 
-    void saludarPorCumpleaños(LocalDate fechaActual);
+    void saludarPorCumpleaños();
 
 }
