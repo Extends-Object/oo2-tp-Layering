@@ -9,12 +9,10 @@ public class DefaultAPI implements IApi {
 
     private PersistenciaAPI registroEmpleados;
     private Notificador notificador;
-    private Consola consola;
 
-    public DefaultAPI(PersistenciaAPI registroEmpleados, Notificador notificador, Consola consola) {
+    public DefaultAPI(PersistenciaAPI registroEmpleados, Notificador notificador) {
         this.registroEmpleados = registroEmpleados;
         this.notificador = notificador;
-        this.consola = consola;
     }
 
     @Override
@@ -25,11 +23,6 @@ public class DefaultAPI implements IApi {
     @Override
     public List<Empleado> listaEmpleados() {
         return this.registroEmpleados.listaEmpleados();
-    }
-
-    @Override
-    public void mostrarLista() {
-        this.consola.imprimir(this.listaEmpleados());
     }
 
     @Override

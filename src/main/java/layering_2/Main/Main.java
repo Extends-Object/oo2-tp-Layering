@@ -21,9 +21,7 @@ public class Main {
 
         Notificador notificador = new NotificadorEmail();
 
-        Consola consola = new Consola(formateador);
-
-        IApi api = new DefaultAPI(registroEmpleados, notificador, consola);
+        IApi api = new DefaultAPI(registroEmpleados, notificador);
 
         Empleado empleado1 = new Empleado("Young", "Angus", LocalDate.of(1982,6, 20), "angus@acdc.com");
         Empleado empleado2 = new Empleado("Johnson", "Brian", LocalDate.of(1975,9, 11), "brian@acdc.com");
@@ -32,11 +30,6 @@ public class Main {
         api.cargarEmpleado(empleado1);
         api.cargarEmpleado(empleado2);
         api.cargarEmpleado(empleado3);
-
-
-        System.out.printf("\nMostrando lista de empleados registrados...\n");
-        api.mostrarLista();
-
 
         System.out.printf("\nSaludando por cumpleaños...\n");
         api.saludarPorCumpleaños(LocalDate.now());

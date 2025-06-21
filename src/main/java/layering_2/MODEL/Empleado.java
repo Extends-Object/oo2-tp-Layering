@@ -13,7 +13,7 @@ public class Empleado {
 
     public Empleado(String apellido, String nombre, LocalDate fechaNacimiento, String email) {
 
-        validarCampos(apellido, nombre, fechaNacimiento, email);
+        //validarCampos(apellido, nombre, fechaNacimiento, email);
 
         this.apellido = apellido;
         this.nombre = nombre;
@@ -21,21 +21,21 @@ public class Empleado {
         this.email = email;
     }
 
-    private void validarCampos(String apellido, String nombre, LocalDate fechaNacimiento, String email) {
-
-        if (apellido.isBlank() || apellido.equals(" ")) {
-            throw new RuntimeException("El apellido no es valido");
-        }
-        if (nombre.isBlank() || nombre.equals(" ")) {
-            throw new RuntimeException("El nombre no es valido");
-        }
-        if (fechaNacimiento == null) {              //verificar que no sea una fecha futura
-            throw new RuntimeException("La fecha de nacimiento no es valida");
-        }
-        if (email.isBlank() || email.equals(" ")) {
-            throw new RuntimeException("La direccion de email no es valida");
-        }
-    }
+//    private void validarCampos(String apellido, String nombre, LocalDate fechaNacimiento, String email) {
+//
+//        if (apellido.isBlank() || apellido.equals(" ")) {
+//            throw new RuntimeException("El apellido no es valido");
+//        }
+//        if (nombre.isBlank() || nombre.equals(" ")) {
+//            throw new RuntimeException("El nombre no es valido");
+//        }
+//        if (fechaNacimiento == null) {              //verificar que no sea una fecha futura
+//            throw new RuntimeException("La fecha de nacimiento no es valida");
+//        }
+//        if (email.isBlank() || email.equals(" ")) {
+//            throw new RuntimeException("La direccion de email no es valida");
+//        }
+//    }
 
     public boolean esSuCumpleaños(LocalDate fechaActual){
         return MonthDay.from(this.fechaNacimiento).equals(MonthDay.from(fechaActual));

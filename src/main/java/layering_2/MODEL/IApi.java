@@ -9,8 +9,6 @@ public interface IApi {
 
     List<Empleado> listaEmpleados();
 
-    void mostrarLista();
-
     void saludarPorCumpleaños(LocalDate fechaActual);
 
 }
