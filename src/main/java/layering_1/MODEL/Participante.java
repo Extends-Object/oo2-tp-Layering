@@ -14,23 +14,38 @@ public class Participante {
         this.region = region;
     }
 
-    private void validarCampos(String nombre, String telefono, String region){
-        if (nombre.isBlank() || nombre.equals(" ")) {
-            throw new RuntimeException("El nombre no es valido");
+    private void validarCampos(String nombre, String telefono, String region) {
+        // Validar nombre
+        if (nombre == null || nombre.isBlank()) {
+            throw new RuntimeException("Debe cargar un nombre");
         }
 
-        if (!(telefono.isBlank() || telefono.equals(" ")) && validarTelefono(telefono)) {
-            throw new RuntimeException("El telefono no es valido");
+        // Validar teléfono
+        if (telefono == null || telefono.isBlank()) {
+            throw new RuntimeException("Debe cargar un telefono");
         }
 
-        if (region.isBlank() || region.equals(" ")) {
+        if (!validarTelefono(telefono)) {
+            throw new RuntimeException("El teléfono debe ingresarse de la siguiente forma: NNNN-NNNNNN");
+        }
+
+        // Validar región
+        if (region == null || region.isBlank()) {
             throw new RuntimeException("La region no es valida");
+        }
+
+        if (!validarRegion(region)) {
+            throw new RuntimeException("Region desconocida. Las conocidas son: China, US, Europa");
         }
     }
 
     private boolean validarTelefono(String telefono) {
         String regex = "\\d{4}-\\d{6}";
         return telefono.matches(regex);
+    }
+
+    private boolean validarRegion(String region) {
+        return region.equals("China") || region.equals("US") || region.equals("Europa");
     }
 
     public String getNombre() {

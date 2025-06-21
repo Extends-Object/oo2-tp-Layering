@@ -1,8 +1,10 @@
-package layering_2.MODEL;
+package layering_2.MODEL.formateador;
+
+import layering_2.MODEL.Empleado;
 
 import java.time.format.DateTimeFormatter;
 
-public class FormateadorEmpleado implements Formateador<Empleado>{
+public class FormateadorEmpleado implements Formateador<Empleado> {
 
     public String formatear(Empleado empleado){
 

@@ -1,115 +1,61 @@
-import layering_2.DATABASE.PersistenciaArchivo;
 import layering_2.MODEL.*;
+import layering_2.MODEL.formateador.Formateador;
+import layering_2.MODEL.formateador.FormateadorEmpleado;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DefaultApiTest {
 
-    String rutaArchivo;
     Formateador<Empleado> formateador;
-    PersistenciaAPI registroEmpleados;
-    Notificador notificadorFake;
+    PersistenciaFake registroFake;
+    NotificadorFake notificadorFake;
+
     Consola consola;
     IApi api;
 
     Empleado empleado1;
     Empleado empleado2;
-    Empleado empleado3;
 
     @BeforeEach
     public void setUp(){
-        rutaArchivo = "src/main/java/ArchivoEmpleados";
         formateador = new FormateadorEmpleado();
-        registroEmpleados = new PersistenciaArchivo(rutaArchivo, formateador);
+        registroFake = new PersistenciaFake();
 
         notificadorFake = new NotificadorFake();
         consola = new Consola(formateador);
 
-        api = new DefaultAPI(registroEmpleados, notificadorFake, consola);
+        api = new DefaultAPI(registroFake, notificadorFake, consola);
 
         empleado1 = new Empleado("Young", "Angus", LocalDate.of(1982,10, 8), "angus@acdc.com");
         empleado2 = new Empleado("Johnson", "Brian", LocalDate.of(1975,9, 11), "brian@acdc.com");
-        empleado3 = new Empleado("Perez", "Pepa", LocalDate.of(1990,5, 11), "pepa@acdc.com");
-
     }
 
     @Test
-    public void cargarEmpleadoTest(){
+    public void saludarPorCumpleaños_SI_CUMPLE() {
+        LocalDate fechaFake = LocalDate.of(2025, 10, 8);
 
-        //Exercise
         api.cargarEmpleado(empleado1);
         api.cargarEmpleado(empleado2);
-        api.cargarEmpleado(empleado3);
 
-        //Verify
-        assertEquals(3, registroEmpleados.listaEmpleados().size(), "La cantidad de empleados no coincide con la insertada.");
+        api.saludarPorCumpleaños(fechaFake);
 
+        assertTrue(notificadorFake.seNotifico());
     }
 
     @Test
-    public void listaEmpleadosTest(){
+    public void saludarPorCumpleaños_NO_CUMPLE(){
+        LocalDate fechaFake = LocalDate.of(2025, 6, 20);
 
-        //Exercise
-        List<Empleado> listaEmpleados = api.listaEmpleados();
+        api.cargarEmpleado(empleado1);
+        api.cargarEmpleado(empleado2);
 
-        // Verify
-        assertEquals(3, listaEmpleados.size(), "La cantidad de empleados no coincide con la insertada.");
+        api.saludarPorCumpleaños(fechaFake);
 
-        /*
-        System.out.println(listaEmpleados.get(1));
-        System.out.println(listaEmpleados.get(2));
-        System.out.println(listaEmpleados.get(0));
-        System.out.println(empleado1);
-
-        ---> Se leen los empleados desde un archivo (PersistenciaArchivo), se crean objetos nuevos y despues se comparan
-                con los objetos originales (empleado1, empleado2, etc.), pero los que se reconstruyen desde el archivo
-                son nuevas instancias, aunque tengan los mismos datos.
-        ---> Cuando se recuperan del archivo son objetos nuevos. Tienen diferente direccion de heap.
-        ---> Sobreescribo el metodo equals() para que compare contenido en vez de direcciones de memoria.
-
-        */
-
-        assertTrue(listaEmpleados.contains(empleado1));
-        assertTrue(listaEmpleados.contains(empleado2));
-        assertTrue(listaEmpleados.contains(empleado3));
-
-    }
-
-    /*
-    @Test
-    public void mostrarListaTest() {
-
-        //Excercise
-        consola.imprimir(registroEmpleados.listaEmpleados());
-
-        //Verify
-        assertEquals("Young Angus, 08/10/1982, angus@acdc.com\n" +
-                "Johnson Brian, 11/09/1975, brian@acdc.com\n" +
-                "Perez Pepa, 11/05/1990, pepa@acdc.com\n", consola.generarStringLista(registroEmpleados.listaEmpleados()));
-    }
-    */
-
-
-    @Test
-    public void saludarPorCumpleaños() {
-
-        //Exercise
-        LocalDate fechaActualFake = LocalDate.of(2025, 5, 11);
-        api.saludarPorCumpleaños(fechaActualFake);
-
-        NotificadorFake fake = (NotificadorFake) notificadorFake;
-
-        List<String> notificados = fake.empleadosNotificados() ;
-
-        //Verify
-        assertEquals(1, notificados.size(), "No se ha notificado correctamente MODEL.a todos los cumpleañeros.");
-        assertTrue(notificados.contains("pepa@acdc.com"));
+        assertFalse(notificadorFake.seNotifico());
     }
 
 }

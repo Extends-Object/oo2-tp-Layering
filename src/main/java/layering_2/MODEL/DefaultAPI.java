@@ -1,5 +1,7 @@
 package layering_2.MODEL;
 
+import layering_2.MODEL.notificador.Notificador;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -31,13 +33,13 @@ public class DefaultAPI implements IApi {
     }
 
     @Override
-    public void saludarPorCumpleaños() {
+    public void saludarPorCumpleaños(LocalDate fechaActual) {
         List<Empleado> listaEmpleados = this.listaEmpleados();
         for(Empleado empleado : listaEmpleados){
-            if (empleado.esSuCumpleaños()){
-                this.notificador.notificar(empleado.getEmail());
+            if (empleado.esSuCumpleaños(fechaActual)){
+                this.notificador.notificar(empleado.email());
+                System.out.printf("Se ha notificado por su cumpleaños a: " + empleado.nombre() + "\n");
             }
         }
     }
-
 }

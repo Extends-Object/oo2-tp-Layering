@@ -1,5 +1,7 @@
 package layering_2.MODEL;
 
+import layering_2.MODEL.formateador.Formateador;
+
 import java.util.List;
 
 public class Consola {
@@ -16,11 +18,11 @@ public class Consola {
         }
     }
 
-    public String generarStringLista(List<Empleado> listaEmpleados){
-        StringBuffer st = new StringBuffer();
-        for(Empleado empleado : listaEmpleados){
-            st.append(this.formateador.formatear(empleado)).append(System.lineSeparator());
-        }
-        return st.toString();
-    }
+//    public String generarStringLista(List<Empleado> listaEmpleados){
+//        StringBuffer st = new StringBuffer();
+//        for(Empleado empleado : listaEmpleados){
+//            st.append(this.formateador.formatear(empleado)).append(System.lineSeparator());
+//        }
+//        return st.toString();
+//    }
 }

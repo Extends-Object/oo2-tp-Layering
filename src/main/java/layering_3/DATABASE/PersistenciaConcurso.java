@@ -1,9 +1,7 @@
 package layering_3.DATABASE;
 
-import layering_2.MODEL.Empleado;
-import layering_2.MODEL.Formateador;
+import layering_2.MODEL.formateador.Formateador;
 import layering_3.MODEL.Concurso;
-import layering_3.MODEL.Participante;
 
 import java.io.*;
 import java.time.LocalDate;

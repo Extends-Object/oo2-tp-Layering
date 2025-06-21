@@ -1,8 +1,7 @@
 package layering_2.DATABASE;
 
 import layering_2.MODEL.Empleado;
-import layering_2.MODEL.Formateador;
-import layering_2.MODEL.FormateadorEmpleado;
+import layering_2.MODEL.formateador.Formateador;
 import layering_2.MODEL.PersistenciaAPI;
 
 import java.io.*;
@@ -48,7 +47,7 @@ public class PersistenciaArchivo implements PersistenciaAPI {
         List<Empleado> listaEmpleados = new ArrayList<>();
 
         try (BufferedReader lector = new BufferedReader(new FileReader(rutaArchivo))) {
-            String linea;       //lo que va MODEL.a recuperar del archivo
+            String linea;       //lo que va a recuperar del archivo
 
             while ((linea = lector.readLine()) != null) {       //se fija si la linea leida es null
                 String[] campos = linea.split(", ");        //reconoce los campos separados por coma

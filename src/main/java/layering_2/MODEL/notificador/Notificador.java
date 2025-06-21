@@ -1,4 +1,4 @@
-package layering_2.MODEL;
+package layering_2.MODEL.notificador;
 
 public interface Notificador {
 

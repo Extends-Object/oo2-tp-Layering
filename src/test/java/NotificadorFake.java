@@ -1,5 +1,4 @@
-import layering_2.MODEL.Email;
-import layering_2.MODEL.Notificador;
+import layering_2.MODEL.notificador.Notificador;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,15 +8,11 @@ public class NotificadorFake implements Notificador {
 
     @Override
     public void notificar(String destinatario) {
-
         this.empleadosNotificados.add(destinatario);
     }
 
-    public List<String> empleadosNotificados() {
-        return empleadosNotificados;
-    }
-
     public boolean seNotifico() {
+        System.out.printf("\nCantidad de empleados que cumple años: " + empleadosNotificados.size());
         return !empleadosNotificados.isEmpty();
     }
 }

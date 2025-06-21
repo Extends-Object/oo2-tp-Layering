@@ -1,14 +1,9 @@
 package layering_3.DATABASE;
 
-import layering_2.MODEL.Formateador;
-import layering_3.MODEL.Concurso;
+import layering_2.MODEL.formateador.Formateador;
 import layering_3.MODEL.Inscripcion;
-import layering_3.MODEL.Participante;
 
 import java.io.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class PersistenciaInscriptos implements PersistenciaInscriptosApi{
 

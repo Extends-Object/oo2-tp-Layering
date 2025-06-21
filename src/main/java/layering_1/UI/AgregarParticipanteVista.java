@@ -8,13 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.sql.SQLException;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
 
 public class AgregarParticipanteVista extends JFrame {
 
@@ -25,8 +20,8 @@ public class AgregarParticipanteVista extends JFrame {
     private IApi api;
 
     public AgregarParticipanteVista(IApi api) throws SQLException {
-        setupUIComponents();
         this.api = api;
+        setupUIComponents();
     }
 
     private void setupUIComponents() {
@@ -65,15 +60,29 @@ public class AgregarParticipanteVista extends JFrame {
         botonCargar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-
                     String nombreString = nombre.getText();
                     String telefonoString = telefono.getText();
                     String regionString = region.getText();
 
                     api.onBotonCargar(nombreString, telefonoString, regionString);
 
+                    // Mostrar mensaje de éxito
+                    JOptionPane.showMessageDialog(AgregarParticipanteVista.this,
+                            "Participante agregado exitosamente",
+                            "Éxito",
+                            JOptionPane.INFORMATION_MESSAGE);
+
+                    // Limpiar campos
+                    nombre.setText("");
+                    telefono.setText("");
+                    region.setText("China");
+
                 } catch (Exception e1) {
-                    throw new RuntimeException(e1);
+                    // Mostrar error al usuario
+                    JOptionPane.showMessageDialog(AgregarParticipanteVista.this,
+                            "Error: " + e1.getMessage(),
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

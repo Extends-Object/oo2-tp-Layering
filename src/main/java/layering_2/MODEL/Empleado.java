@@ -26,40 +26,22 @@ public class Empleado {
         if (apellido.isBlank() || apellido.equals(" ")) {
             throw new RuntimeException("El apellido no es valido");
         }
-
         if (nombre.isBlank() || nombre.equals(" ")) {
             throw new RuntimeException("El nombre no es valido");
         }
-
         if (fechaNacimiento == null) {              //verificar que no sea una fecha futura
             throw new RuntimeException("La fecha de nacimiento no es valida");
         }
-
         if (email.isBlank() || email.equals(" ")) {
             throw new RuntimeException("La direccion de email no es valida");
         }
-
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Empleado empleado = (Empleado) o;
-        return Objects.equals(apellido, empleado.apellido) && Objects.equals(nombre, empleado.nombre) && Objects.equals(fechaNacimiento, empleado.fechaNacimiento) && Objects.equals(email, empleado.email);
+    public boolean esSuCumpleaños(LocalDate fechaActual){
+        return MonthDay.from(this.fechaNacimiento).equals(MonthDay.from(fechaActual));
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(apellido, nombre, fechaNacimiento, email);
-    }
-
-    public boolean esSuCumpleaños(){
-        return MonthDay.from(this.fechaNacimiento).equals(MonthDay.from(LocalDate.now()));
-    }
-
-    public String apellido() {
-        return apellido;
-    }
+    public String apellido() { return apellido; }
 
     public String nombre() {
         return nombre;
@@ -69,9 +51,7 @@ public class Empleado {
         return fechaNacimiento;
     }
 
-    public String getEmail() {
+    public String email() {
         return email;
     }
-
-
 }
