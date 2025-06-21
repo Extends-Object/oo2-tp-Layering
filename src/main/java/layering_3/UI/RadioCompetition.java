@@ -1,13 +1,14 @@
 package layering_3.UI;
 
-import layering_3.MODEL.Concurso;
 import layering_3.MODEL.IApi;
+import layering_3.MODEL.dto.ConcursoDTO;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.util.List;
 
 public class RadioCompetition {
 
@@ -22,15 +23,17 @@ public class RadioCompetition {
     private JTextField txtPhone;
     private JLabel lblEmail;
     private JTextField txtEmail;
-    private JComboBox<String> comboBox;
+    private JComboBox<ConcursoDTO> comboBox;
     private JButton btnOk;
     private JLabel lblCompetition;
 
-    private IApi api;
+    private List<ConcursoDTO> concursosActivos;
+
+    //private IApi api;
 
     public RadioCompetition(IApi api) {
 
-        this.api = api;
+        //this.api = api;
 
         var frame = new JFrame("Inscription to Competition");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,8 +70,13 @@ public class RadioCompetition {
         txtEmail.setColumns(10);
 
         lblCompetition = new JLabel("Concurso:");
-        comboBox = new JComboBox<String>();
-        api.todosLosConcursos(LocalDate.now());
+        comboBox = new JComboBox<>();
+        comboBox.addItem(null);
+        concursosActivos = api.todosLosConcursos(LocalDate.now());
+        for (ConcursoDTO concurso : concursosActivos){
+            comboBox.addItem(concurso);
+        }
+
 
         //BOTON OK
         btnOk = new JButton("Ok");
@@ -76,23 +84,40 @@ public class RadioCompetition {
             public void actionPerformed(ActionEvent e) {
                 btnOk.setEnabled(false);
 
-                if (!(comboBox.getSelectedIndex() <= 0)) {
-                    JOptionPane.showMessageDialog(contentPane, "Debe elegir un Concurso");
+                try {
+                    if (comboBox.getSelectedIndex() <= 0 || comboBox.getSelectedItem() == null) {
+                        throw new RuntimeException("Debe elegir un Concurso");
+                    }
+
+                    String apellido = txtLastName.getText();
+                    String nombre = txtName.getText();
+                    int dni = Integer.parseInt(txtId.getText());  // Esto deberías validar también
+                    String telefono = txtPhone.getText();
+                    String email = txtEmail.getText();
+
+                    ConcursoDTO concurso = (ConcursoDTO) comboBox.getSelectedItem();
+
+                    api.saveInscription(apellido, nombre, dni, email, telefono, concurso);
+
+                    JOptionPane.showMessageDialog(contentPane, "Inscripción guardada correctamente");
+                    limpiarCampos();
+
+                } catch (RuntimeException ex) {
+                    JOptionPane.showMessageDialog(contentPane, ex.getMessage(), "Error de validación", JOptionPane.WARNING_MESSAGE);
+                } finally {
+                    btnOk.setEnabled(true);
                 }
-
-                String apellido = txtLastName.getText();
-                String nombre = txtName.getText();
-                int dni = Integer.parseInt(txtId.getText());
-                String telefono = txtPhone.getText();
-                String email = txtEmail.getText();
-
-                Concurso concurso = (Concurso) comboBox.getSelectedItem();
-
-                api.saveInscription(apellido, nombre, dni, email, telefono, concurso);
-
-                btnOk.setEnabled(true);
             }
         });
+    }
+
+    private void limpiarCampos() {
+        txtName.setText("");
+        txtLastName.setText("");
+        txtId.setText("");
+        txtPhone.setText("");
+        txtEmail.setText("");
+        comboBox.setSelectedIndex(0); // vuelve a "Seleccione..."
     }
 
     private void layout() {

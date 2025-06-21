@@ -15,7 +15,7 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
 
-        String rutaArchivo = "src/main/java/ArchivoEmpleados";
+        String rutaArchivo = "src/main/java/layering_2/ArchivoEmpleados";
         Formateador<Empleado> formateador = new FormateadorEmpleado();
         PersistenciaAPI registroEmpleados = new PersistenciaArchivo(rutaArchivo, formateador);
 

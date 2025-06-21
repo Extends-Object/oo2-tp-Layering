@@ -1,7 +1,8 @@
-package layering_3.DATABASE;
+package layering_3.DATABASE.concurso;
 
-import layering_2.MODEL.formateador.Formateador;
 import layering_3.MODEL.Concurso;
+import layering_3.MODEL.ConcursoAPI;
+import layering_3.MODEL.formateador.Formateador;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -9,13 +10,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersistenciaConcurso implements PersistenciaConcursoApi{
+public class ConcursoAPI_archivo implements ConcursoAPI {
 
     private String rutaArchivo;
     private Formateador formateador;
 
 
-    public PersistenciaConcurso (String rutaArchivo, Formateador formateador) {
+    public ConcursoAPI_archivo(String rutaArchivo, Formateador formateador) {
         this.rutaArchivo = rutaArchivo;
         this.formateador = formateador;
     }
@@ -40,37 +41,37 @@ public class PersistenciaConcurso implements PersistenciaConcursoApi{
     }
 
     @Override
-    public List<Concurso> listaConcursos() {
-        List<Concurso> listaConcursos = new ArrayList<>();
+    public List<Concurso> listaConcursosActivos(LocalDate fechaActual) {
+        List<Concurso> activos = new ArrayList<>();
 
         try (BufferedReader lector = new BufferedReader(new FileReader(rutaArchivo))) {
-            String linea;       //lo que va MODEL.a recuperar del archivo
+            String linea;
 
-            while ((linea = lector.readLine()) != null) {       //se fija si la linea leida es null
-                String[] campos = linea.split(", ");        //reconoce los campos separados por coma
+            while ((linea = lector.readLine()) != null) {
+                String[] campos = linea.split(", ");
 
                 if (campos.length == 4) {
-
                     int id = Integer.parseInt(campos[0]);
                     String nombre = campos[1];
 
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
                     LocalDate fechaInicioInscripcion = LocalDate.parse(campos[2], formatter);
                     LocalDate fechaCierreInscripcion = LocalDate.parse(campos[3], formatter);
 
-                    Concurso concurso = new Concurso(id, nombre, fechaInicioInscripcion, fechaCierreInscripcion);
-                    listaConcursos.add(concurso);
+                    if (!fechaActual.isBefore(fechaInicioInscripcion) && !fechaActual.isAfter(fechaCierreInscripcion)) {
+                        Concurso concurso = new Concurso();
+                        concurso.setIdConcurso(id);
+                        concurso.setNombre(nombre);
+                        concurso.setFechaInicioInscripcion(fechaInicioInscripcion);
+                        concurso.setFechaCierreInscripcion(fechaCierreInscripcion);
+                        activos.add(concurso);
+                    }
                 }
             }
         } catch (IOException e) {
-            throw new RuntimeException("Error al leer el archivo. ", e);
+            throw new RuntimeException("Error al leer el archivo.", e);
         }
-        return listaConcursos;
-    }
-
-    @Override
-    public List<Concurso> listaConcursosActivos(LocalDate fechaActual) {
-        return List.of();
+        return activos;
     }
 
 }

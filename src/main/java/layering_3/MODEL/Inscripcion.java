@@ -10,7 +10,11 @@ public class Inscripcion {
         this.idConcurso = idConcurso;
     }
 
+    public Participante participante() {
+        return participante;
+    }
 
-
-
+    public int idConcurso() {
+        return idConcurso;
+    }
 }

@@ -4,29 +4,37 @@ import java.time.LocalDate;
 
 public class Concurso {
 
-    private static int idConcurso = 1;
-    private int id;
+    private static int id = 1;
+    private int idConcurso;
     private String nombre;
     private LocalDate fechaInicioInscripcion;
     private LocalDate fechaCierreInscripcion;
 
+    public Concurso() { }
 
     public Concurso (String nombre, LocalDate fechaInicioInscripcion, LocalDate fechaCierreInscripcion) {
-        this.idConcurso++;
+        this.idConcurso = this.id;
         this.nombre = nombre;
         this.fechaInicioInscripcion = fechaInicioInscripcion;
         this.fechaCierreInscripcion = fechaCierreInscripcion;
+        this.id++;
     }
 
-    public Concurso (int id, String nombre, LocalDate fechaInicioInscripcion, LocalDate fechaCierreInscripcion) {
-        this.id = id;
-        this.nombre = nombre;
-        this.fechaInicioInscripcion = fechaInicioInscripcion;
-        this.fechaCierreInscripcion = fechaCierreInscripcion;
+    public int id() { return idConcurso;}
+
+    public String nombre(){
+        return nombre;
     }
 
-    public int getId() {
-        return id;
-    }
+    public LocalDate fechaInicioInscripcion() { return fechaInicioInscripcion; }
 
+    public LocalDate fechaCierreInscripcion() { return fechaCierreInscripcion; }
+
+    public void setIdConcurso(int idConcurso) { this.idConcurso = idConcurso; }
+
+    public void setNombre(String nombre) { this.nombre = nombre; }
+
+    public void setFechaInicioInscripcion(LocalDate fechaInicioInscripcion) { this.fechaInicioInscripcion = fechaInicioInscripcion; }
+
+    public void setFechaCierreInscripcion(LocalDate fechaCierreInscripcion) { this.fechaCierreInscripcion = fechaCierreInscripcion; }
 }

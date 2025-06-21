@@ -1,17 +1,18 @@
-package layering_3.DATABASE;
+package layering_3.DATABASE.inscriptos;
 
-import layering_2.MODEL.formateador.Formateador;
 import layering_3.MODEL.Inscripcion;
+import layering_3.MODEL.InscriptosAPI;
+import layering_3.MODEL.formateador.Formateador;
 
 import java.io.*;
 
-public class PersistenciaInscriptos implements PersistenciaInscriptosApi{
+public class InscriptosAPI_archivo implements InscriptosAPI {
 
     private String rutaArchivo;
     private Formateador formateador;
 
 
-    public PersistenciaInscriptos (String rutaArchivo, Formateador formateador) {
+    public InscriptosAPI_archivo(String rutaArchivo, Formateador formateador) {
         this.rutaArchivo = rutaArchivo;
         this.formateador = formateador;
     }
