@@ -15,25 +15,18 @@ public class Participante {
     }
 
     private void validarCampos(String nombre, String telefono, String region) {
-        // Validar nombre
         if (nombre == null || nombre.isBlank()) {
             throw new RuntimeException("Debe cargar un nombre");
         }
-
-        // Validar teléfono
         if (telefono == null || telefono.isBlank()) {
             throw new RuntimeException("Debe cargar un telefono");
         }
-
         if (!validarTelefono(telefono)) {
             throw new RuntimeException("El teléfono debe ingresarse de la siguiente forma: NNNN-NNNNNN");
         }
-
-        // Validar región
         if (region == null || region.isBlank()) {
             throw new RuntimeException("La region no es valida");
         }
-
         if (!validarRegion(region)) {
             throw new RuntimeException("Region desconocida. Las conocidas son: China, US, Europa");
         }
